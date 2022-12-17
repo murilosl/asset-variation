@@ -16,7 +16,7 @@ class ChartPage extends HookConsumerWidget {
     return Container(
       child: controller.when(
         data: (layoutData) => ChartScreen(
-          data: layoutData,
+          data: layoutData, chartData: [],
         ),
         error: (err, stack) => Text('Error $err'), 
         loading: () => const Center(
