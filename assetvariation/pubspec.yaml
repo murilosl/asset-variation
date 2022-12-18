@@ -40,6 +40,8 @@ dependencies:
   syncfusion_flutter_charts: ^20.3.61
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^2.1.1
+  intl: ^0.18.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

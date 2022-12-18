@@ -1,14 +1,13 @@
-import 'package:assetvariation/features/chart/model/chart.dart';
 import 'package:assetvariation/features/chart/model/chart_data.dart';
 import 'package:assetvariation/features/chart/view/chart_screen_layout_data.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartScreen extends StatefulWidget {
   final ChartScreenLayoutData data;
-  final List<ChartData> chartData;
 
-  const ChartScreen({super.key, required this.data, required this.chartData});
+  const ChartScreen({super.key, required this.data});
 
   @override
   State<ChartScreen> createState() => _ChartScreenState();
@@ -19,17 +18,16 @@ class _ChartScreenState extends State<ChartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cotação"),
+        title: const Text("PETR4"),
       ),
-      body: ChartScreenBody(data: widget.data, chartData: widget.chartData,),
+      body: ChartScreenBody(data: widget.data),
     );
   }
 }
 
 class ChartScreenBody extends StatefulWidget {
   final ChartScreenLayoutData data;
-  final List<ChartData> chartData;
-  const ChartScreenBody({super.key, required this.data, required this.chartData});
+  const ChartScreenBody({super.key, required this.data});
 
   @override
   State<ChartScreenBody> createState() => _ChartScreenBodyState();
@@ -41,17 +39,23 @@ class _ChartScreenBodyState extends State<ChartScreenBody> {
   @override
   Widget build(BuildContext context) {
 
-    var chartData = widget.data.chart.chart.result[0].indicators.quote;
-
-    return Container(child: SfCartesianChart(
+    return SfCartesianChart(
           tooltipBehavior: _tooltipBehavior,
           primaryXAxis: CategoryAxis(),
-          series: <CartesianSeries>[
-            AreaSeries<ChartData, DateTime>(
-            dataSource: widget.chartData, 
+          series: <ChartSeries>[
+            LineSeries<ChartData, int>(
+            dataSource: widget.data.chartData,
+            color: Colors.redAccent,
             xValueMapper: (ChartData data, _) => data.x,
             yValueMapper: (ChartData data, _) => data.y)
           ],
-        ),);
+          plotAreaBorderWidth: 0,
+          primaryYAxis: NumericAxis(
+            opposedPosition: true,
+            axisLine: const AxisLine(width: 0),
+            majorTickLines: const MajorTickLines(width: 0),
+            numberFormat: NumberFormat.compactCurrency(locale: 'pt-BR', symbol: 'R\$'),
+          ),
+        );
   }
 }
