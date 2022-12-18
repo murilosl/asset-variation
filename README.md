@@ -1,11 +1,11 @@
 # ASSET VARIATION
 
 ## ARCHITECTURE
-Clean Architecture
+- Clean Architecture
 
 ## PACKAGES
-River Pod
-Syncfusion
+- River Pod
+- Syncfusion
 
 ## HOW TO RUN
 ```
